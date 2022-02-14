@@ -3,14 +3,14 @@ class UsersController < ApplicationController
 
     #POST/SIGNUP /signup 
     def create
-        @new_user = User.new(params)
-        if @new_user.save
-            session[:user_id] = @new_user.id
-            render json: @new_user, status: :created
-        else 
-            render json: { errors: @new_user.errors.full_messages }, status: :unprocessable_entity
+        user = User.create(user_params)
+        if user.valid?
+          session[:user_id] = user.id
+          render json: user, status: :created
+        else
+          render json: { errors: [user.errors.full_messages] }, status: :unprocessable_entity
         end
-    end
+      end
 
     #PATCH /users/:id
     def update
@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
     #DELETE /users/:id
 
+
     #Pravte Methods
     private
 
@@ -28,11 +29,16 @@ class UsersController < ApplicationController
         @user = User.find_by(id: session[:user_id])
     end
 
-    def params
-        params.permit(:username, :password, :password_confirmation, :email, :image_url, :bio, :flatiron_status)
+    def user_params
+        params.require(:user).permit(:username, :password, :password_confirmation, :email, :image_url, :bio, :flatiron_status)
     end
 
     def error_message_not_found
         render json: { error: "User not found" }, status: :not_found
     end
+
+    def authorize
+      return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+    end
+    
 end
