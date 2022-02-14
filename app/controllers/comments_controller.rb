@@ -1,9 +1,9 @@
 class CommentsController < ApplicationController
-    
+
     #GET /comments
 
 
-    #CREATE /comments
+    #POST /comments
 
 
     #DELETE /comments/:id

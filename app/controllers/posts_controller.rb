@@ -6,7 +6,7 @@ class PostsController < ApplicationController
     #SHOW /posts/:id
 
 
-    #CREATE /posts
+    #POST /posts
 
 
     #DELETE /posts/:id
