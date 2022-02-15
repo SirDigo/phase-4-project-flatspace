@@ -55,6 +55,7 @@ function SignUpForm({setUser, setIsAuthenticated}) {
  
   <input type="submit" value="Sign up" />
   </form>
+  {/* in case of error, it will get the first index of the array of errors, and display the error name; and get the second index and display the value */}
   {errors?errors.map(e => <div>{e[0]+': ' + e[1]}</div>):null}
   </>
   )
