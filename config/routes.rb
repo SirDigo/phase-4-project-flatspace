@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
-  # resources :comments
-  # resources :posts
+  resources :comments, only: [:index]
+  resources :posts
   resources :users, only: [:update]
 
   post '/signup', to: 'users#create' 
