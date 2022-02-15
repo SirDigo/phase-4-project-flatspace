@@ -3,8 +3,7 @@ class PostsController < ApplicationController
     #GET /posts
 
     def index
-        posts = Post.all
-        render json: post
+        render json: Post.all
     end
 
     #SHOW /posts/:id
@@ -31,16 +30,17 @@ class PostsController < ApplicationController
         render json: post, status: :created
 
     rescue ActiveRecord::RecordInvalid => invalid
-        render json: {errors :invalid.record.errors}, status: :unprocessable_entity
+        render json: {errors: invalid.record.errors}, status: :unprocessable_entity
 
     end
 
     #PATCH / PUT /posts/:id
 
-    post = @post
-    post.update!(post_params)
-    render json: user, status: :ok
-
+    def update
+        post = @post
+        post.update!(post_params)
+        render json: user, status: :ok
+    end 
     # def update
     #     if @post.update(post_params)
     #         redirect_to @post, notice: "Post was successfully updated."
@@ -64,7 +64,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-        params.require(:post).permit(:title, :creator, :user_id, :content, :image)
+        params.require(:post).permit(:title, :user_id, :content, :image)
     end
 
 end

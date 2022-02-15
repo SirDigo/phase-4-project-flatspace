@@ -2,7 +2,9 @@ class CommentsController < ApplicationController
     before_action :error_message_not_found, unless: :find_by_id, only: [:destroy, :update]
 
     #GET /comments
-
+    def index
+        render json: Comment.all, status: :ok
+    end
 
     #POST /comments
     def create
@@ -34,7 +36,7 @@ class CommentsController < ApplicationController
     end
 
     def params_permit
-        params.permit(:content, :post_id, :user_id, :commentor)
+        params.permit(:content, :post_id, :user_id)
     end
 
     def error_message_not_found
