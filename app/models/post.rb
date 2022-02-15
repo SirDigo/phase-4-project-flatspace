@@ -4,17 +4,17 @@ class Post < ApplicationRecord
 
   validates :title, presence: true
 
-  validates :content, presence: true, unless: :image_present?
-  validates :image, presence: true, unless: :content_present?
+  validates :content, presence: true
+  # validates :image, presence: true, unless: :content_present?
 
 
-  private
+  # private
 
-  def image_present
-    image.present?
-  end
+  # def image_present
+  #   image.present?
+  # end
 
-  def content_present
-    content.present?
-  end
+  # def content_present
+  #   content.present?
+  # end
 end
