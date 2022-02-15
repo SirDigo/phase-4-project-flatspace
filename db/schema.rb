@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_161218) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
+    t.string "commentor"
     t.string "content"
     t.integer "likes"
     t.integer "dislikes"
@@ -28,6 +29,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_161218) do
   end
 
   create_table "posts", force: :cascade do |t|
+    t.string "creator"
     t.string "title"
     t.string "image"
     t.text "content"
