@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   # adding this to test
-  # get '/authorized_user', to: 'users#show'
+  get '/authorized_user', to: 'users#show'
 
 
   # Routing logic: fallback requests for React Router.

@@ -46,12 +46,10 @@ function LoginForm({setUser,setIsAuthenticated}) {
     <form onSubmit={onSubmit}>
     <label>
       Username
-
       <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
     </label>
     <label>
      Password
-
     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
     </label>
    
@@ -59,7 +57,7 @@ function LoginForm({setUser,setIsAuthenticated}) {
   </form>
   {/* if there is error, it will be displayed, other wise do null */}
   {error?<div>{error}</div>:null}
-  <SignUpForm setUser={setUser} setIsAuthenticated={setUser}/>
+  <SignUpForm setUser={setUser} setIsAuthenticated={setIsAuthenticated}/>
     </>
 )
 }

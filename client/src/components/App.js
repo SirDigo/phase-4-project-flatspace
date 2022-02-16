@@ -26,7 +26,7 @@ function App() {
       }
     });
 
-    fetch('/profile')
+    fetch('/posts')
     .then(res => res.json())
     .then(setPosts);
 
@@ -57,8 +57,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/signup" element={<SignUpForm />} />
-        <Route path="/login" element={<LoginForm />} />
+        <Route path="/signup" element={<SignUpForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
+        <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
         <Route path="/about" element={<About />} />
         <Route path="/addpost" element={<AddPostForm handlePost={handlePost} errors={errors}/>} />
         <Route path="/profile" element={<Profile />} />
