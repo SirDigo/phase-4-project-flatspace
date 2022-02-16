@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
     before_action :error_message_not_found, unless: :find_by_id, only: [:update, :show]
 
-
+    def index
+      render json: User.all, status: :ok
+    end
   # adding this for testing
   def show
       render json: @user, status: :ok

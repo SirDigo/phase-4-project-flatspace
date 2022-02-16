@@ -42,18 +42,16 @@ function LoginForm({setUser,setIsAuthenticated}) {
   return (
       
     <> 
-    <h1>Login</h1>
+    <h1>login</h1>
     <form onSubmit={onSubmit}>
-    <label>
-      Username
-      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-    </label>
-    <label>
-     Password
-    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-    </label>
+    {/* <label> */}
+      <input className="login-input" type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+    {/* </label> */}
+    {/* <label> */}
+    <input className="login-input" type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+    {/* </label> */}
    
-    <input type="submit" value="Flatspace login" />
+    <input type="submit" value="login" />
   </form>
   {/* if there is error, it will be displayed, other wise do null */}
   {error?<div>{error}</div>:null}
