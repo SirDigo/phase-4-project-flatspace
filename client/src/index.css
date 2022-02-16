@@ -1,6 +1,6 @@
 body {
   font-family: 'Times New Roman';
-  background-color: rgb(126, 186, 232);
+  background-color: rgb(47, 181, 112);
 }
 
 .post-container {
@@ -9,4 +9,12 @@ body {
   list-style: none;
   margin: 10;
   padding: 10;
+}
+
+.login-input {
+  width: 5%
+}
+
+.signup-input {
+  width: 6%
 }
