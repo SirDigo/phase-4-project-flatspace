@@ -1,5 +1,11 @@
 class UsersController < ApplicationController
-    before_action :error_message_not_found, unless: :find_by_id, only: [:update]
+    before_action :error_message_not_found, unless: :find_by_id, only: [:update, :show]
+
+
+  # adding this for testing
+  def show
+      render json: @user, status: :ok
+  end
 
     #POST/SIGNUP /signup 
     def create
@@ -15,14 +21,14 @@ class UsersController < ApplicationController
     #PATCH /users/:id
     def update
         user = @user
-        user.update(params)
+        user.update(user_params)
         render json: user, status: :ok
     end
 
     #DELETE /users/:id
 
 
-    #Pravte Methods
+    #Private Methods
     private
 
     def find_by_id
@@ -30,7 +36,8 @@ class UsersController < ApplicationController
     end
 
     def user_params
-        params.require(:user).permit(:username, :password, :password_confirmation, :email, :image_url, :bio, :flatiron_status)
+       params.require(:user).permit(:username, :password, :password_confirmation, :email)
+      #  , :image_url, :bio, :flatiron_status
     end
 
     def error_message_not_found

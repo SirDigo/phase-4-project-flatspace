@@ -55,7 +55,7 @@ function LoginForm({setUser,setIsAuthenticated}) {
     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
     </label>
    
-    <input type="submit" value="Login to Flatspace" />
+    <input type="submit" value="Flatspace login" />
   </form>
   {/* if there is error, it will be displayed, other wise do null */}
   {error?<div>{error}</div>:null}
