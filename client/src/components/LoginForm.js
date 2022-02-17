@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
-
-import SignUpForm from './SignUpForm'
+// import Home from './Home';
+// import Navigate from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -10,7 +11,9 @@ function LoginForm({setUser,setIsAuthenticated}) {
     const [password, setPassword] = useState('')
     const [error, setError] = useState([])
 
-    function onSubmit(e){
+    const history = useNavigate();
+
+    async function handleSubmit(e){
       e.preventDefault()
       const user = {
           username: username,
@@ -27,15 +30,17 @@ function LoginForm({setUser,setIsAuthenticated}) {
           res.json()
           .then(user=>{
             setUser(user)
-            setIsAuthenticated(true)
+            setIsAuthenticated(true);
+            history("/");
           })
           
         } else {
           res.json()
           .then(json => setError(json.error))
         }
+        
       })
-  }
+    }
 
 
 
@@ -43,7 +48,7 @@ function LoginForm({setUser,setIsAuthenticated}) {
       
     <> 
     <h1>login</h1>
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
     {/* <label> */}
       <input className="login-input" type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
     {/* </label> */}
@@ -55,7 +60,6 @@ function LoginForm({setUser,setIsAuthenticated}) {
   </form>
   {/* if there is error, it will be displayed, other wise do null */}
   {error?<div>{error}</div>:null}
-  <SignUpForm setUser={setUser} setIsAuthenticated={setIsAuthenticated}/>
     </>
 )
 }

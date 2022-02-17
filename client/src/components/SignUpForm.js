@@ -1,12 +1,15 @@
 import React, {useState} from "react";
+import { useNavigate } from 'react-router-dom';
 
-function SignUpForm({setUser, setIsAuthenticated}) {
+function SignUpForm({ handleSignUp, setUser, setIsAuthenticated}) {
 
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState([])
   // const [passwordConfirmation, setPasswordConfirmation] = useState('')
+
+  const navigate = useNavigate();
 
   function onSubmit(e){
     e.preventDefault()
@@ -15,39 +18,35 @@ function SignUpForm({setUser, setIsAuthenticated}) {
         email,
         password
     }
-    fetch(`/signup`,{
-      method:'POST',
-      headers:{'Content-Type': 'application/json'},
-      body:JSON.stringify(user)
-    })
-    .then(res => {
-      if(res.ok){
-        res.json()
-        .then(user=> {
-          setUser(user)
-          setIsAuthenticated(true)
-        })
+    handleSignUp(user)
+    // fetch(`/users`,{
+    //   method:'POST',
+    //   headers:{'Content-Type': 'application/json'},
+    //   body:JSON.stringify(user)
+    // })
+    // .then(res => {
+    //   if(res.ok){
+    //     res.json()
+    //     .then(user=> {
+    //       setUser(user)
+    //       setIsAuthenticated(true)
+    //       navigate("/");
+    //     })
         
-      } else {
-        res.json()
-        .then(json => setErrors(json.errors))
-      }
-    })
+    //   } else {
+    //     res.json()
+    //     .then(json => setErrors(json.errors))
+    //   }
+    // })
 }
 
   return (
       <> 
       <h1>sign up</h1>
       <form onSubmit={onSubmit}>
-      {/* <label> */}
         <input className="signup-input" type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        {/* </label>
-       <label> */}
        <input className="signup-input" type="text" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-       {/* </label>
-       <label> */}
        <input className="signup-input" type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      {/* </label> */}
 
   {/* <label>
    Password Confirmation
