@@ -9,6 +9,7 @@ function Header() {
             <li className="header-link"><Link to="/about">about</Link></li>
             <li className="header-link"><Link to="/login">login</Link></li>
             <li className="header-link"><Link to="/signup">sign up</Link></li>
+            <li className="header-link"><Link to="/addpost">add post</Link></li>
         </ul>
     </header>
   );

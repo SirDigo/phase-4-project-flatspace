@@ -9,7 +9,8 @@ class PostsController < ApplicationController
 
     #SHOW /posts/:id
     def show
-        render json: @post
+        p = Post.find_by(id: params[:id])
+        render json: p, status: :ok
     end
 
     # creator = post.user.username
