@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
-  
+
   resources :comments, only: [:index, :update, :create]
   resources :posts
   resources :users, only: [:update, :create, :index, :show]
   
+  get '/users/:id/posts/:postid', to: 'users#post'
+  get '/users/:id/posts', to: 'users#posts'
   post '/signup', to: 'users#create' 
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
