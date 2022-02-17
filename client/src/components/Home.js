@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./Header";
+// import Header from "./Header";
 import { Link } from "react-router-dom";
 
 function Home( {profiles} ) {
@@ -17,7 +17,7 @@ function Home( {profiles} ) {
 
   return (
     <div className="homepage">
-    <Header />
+    {/* <Header /> */}
     {profileItems}
     </div>
   );

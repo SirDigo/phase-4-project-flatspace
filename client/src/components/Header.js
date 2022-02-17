@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header( {state} ) {
   return (
     <header>
         <h1 className="main-header">flatspace</h1>

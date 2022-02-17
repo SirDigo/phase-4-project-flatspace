@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import Header from "./Header";
 import Home from "./Home";
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
@@ -36,7 +37,7 @@ function handleSignUp(u){
     } else {
       setProfiles([...profiles, data]);
       setIsAuthenticated(true);
-      navigate("/");
+      navigate(`/${data.id}`);
       setUser(data);
     }
   })
@@ -80,6 +81,7 @@ function handleSignUp(u){
 
   return (
     <div className="App">
+      <Header />
       <Routes>
         <Route path="/signup" element={<SignUpForm handleSignUp={handleSignUp} setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
         <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
@@ -87,7 +89,7 @@ function handleSignUp(u){
         <Route path="/addpost" element={<AddPostForm handlePost={handlePost} errors={errors}/>} />
         <Route path="/:id/:postId" element={<Post />}/>
         <Route path="/:id/*" element={<Profile />} />
-        <Route path="/" element={<Home profiles={profiles} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/>} />
+        <Route path="/" element={<Home profiles={profiles} setIsAuthenticated={setIsAuthenticated} user={user}/>} />
       </Routes>
     </div>
   );
