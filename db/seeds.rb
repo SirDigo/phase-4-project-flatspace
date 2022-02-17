@@ -10,7 +10,7 @@ puts "Seeding users..."
 
 puts "Seeding Posts..."
 
-10.times{Post.create({title: Faker::Movie.title, content: Faker::Lorem.paragraphs, user_id: User.all.sample.id})}
+10.times{Post.create({title: Faker::Movie.title, content: Faker::Lorem.paragraph, user_id: User.all.sample.id})}
 
 puts "Seeding comments..."
 

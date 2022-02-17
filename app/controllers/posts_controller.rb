@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
     def index
         posts = Post.all
-        render json: posts, include: :comments, status: :ok
+        render json: posts, status: :ok
     end
 
     #SHOW /posts/:id
