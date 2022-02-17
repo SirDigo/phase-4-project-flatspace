@@ -1,31 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 function Profile() {
-    const [profile, setProfile] = useState(null);
+    const [profile, setProfile] = useState({});
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const { id } = useParams();
 
     useEffect(() => {
-        fetch(`/users`)
-        .then((r) => r.json())
-        .then(data => console.log(data))
+      fetch(`/users/${id}`)
+      .then((r) => r.json())
+      .then(profile => {
+      setProfile(profile);
+      setIsLoaded(true)
+      })
     }, [id])
 
-    // const postItems = profile.posts.map((post) => {console.log(post)
-        // return (
-        //     <card className="post-container">
-        //         <h2>{post.title}</h2>
-        //         <p>{post.content}</p>
-        //     </card>
-        // )
-    // })
+    if (!isLoaded) return <h2>Loading...</h2>;
 
   return (
-    <div className="profile">
-        <div className="posts">
-            {/* {postItems} */}
-        </div>
+    <div className="profile-display">
+        <h1>{profile.username}</h1>
+        {profile.posts.map(post => {
+          return (
+            <div className="post" key={post.id}>
+            <h3>{post.title}</h3>
+            <p>{post.content}</p>
+            </div>
+          )
+        })}
     </div>
   );
 }
