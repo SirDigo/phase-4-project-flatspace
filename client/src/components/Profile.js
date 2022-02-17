@@ -7,7 +7,7 @@ function Profile() {
     const { id } = useParams();
 
     useEffect(() => {
-        fetch(`http://127.0.0.1:3000/users/{id}`)
+        fetch(`/users`)
         .then((r) => r.json())
         .then(data => console.log(data))
     }, [id])

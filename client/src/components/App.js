@@ -15,7 +15,7 @@ function App() {
 
   // setting the state to authenticated user. If the user is not authenticated, it will be redirected to the login page.
   useEffect(() => {
-    fetch("/authorized_user")
+    fetch('/authorized_user')
     .then((res) => {
       if (res.ok) {
         res.json()
@@ -51,6 +51,9 @@ function App() {
   if (!isAuthenticated) return <LoginForm error={'please login'} setIsAuthenticated={setIsAuthenticated} setUser={setUser} />;
 
 
+
+
+
   return (
     <div className="App">
       <Routes>
@@ -58,8 +61,8 @@ function App() {
         <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
         <Route path="/about" element={<About />} />
         <Route path="/addpost" element={<AddPostForm handlePost={handlePost} errors={errors}/>} />
-        <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/" element={<Home setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/>} />
       </Routes>
     </div>
   );
