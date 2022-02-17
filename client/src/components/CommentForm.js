@@ -4,19 +4,24 @@ function CommentForm({addComment}) {
   const [formData, setFormData] = useState({
     content:''
   })
+
+
   function handleChange(event) {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
   }
+
   function handleSubmit(event) {
     event.preventDefault();
+
     const newComment = {
       ...formData,
       likes: 0,
       dislikes: 0
     };
+
     fetch("/comments", {
       method: "POST",
       headers: {
@@ -27,9 +32,11 @@ function CommentForm({addComment}) {
       .then((r) => r.json())
       .then(addComment);
   }
+    
   return (
     <div >
       {/* {errors?errors.map(e => <div>{e}</div>):null} */}
+
       <form onSubmit={handleSubmit}>
         <h3>What's your thought on this?</h3>
         <input
@@ -50,6 +57,7 @@ function CommentForm({addComment}) {
     </div>
   );
 }
+
 // const CommentForm = ({
 //   handleSubmit,
 //   submitLabel,
@@ -86,4 +94,5 @@ function CommentForm({addComment}) {
 //     </form>
 //   );
 // };
+
 export default CommentForm;
