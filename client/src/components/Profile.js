@@ -1,31 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function Profile() {
+    // const [posts, setPosts] = useState(null);
     const [profile, setProfile] = useState(null);
 
     const { id } = useParams();
 
     useEffect(() => {
-        fetch(`http://127.0.0.1:3000/users/{id}`)
-        .then((r) => r.json())
-        .then(data => console.log(data))
-    }, [id])
+      fetch(`/users/${id}`)
+      .then((r) => r.json())
+      .then(profile => setProfile(profile))
+    })
 
-    // const postItems = profile.posts.map((post) => {console.log(post)
-        // return (
-        //     <card className="post-container">
-        //         <h2>{post.title}</h2>
-        //         <p>{post.content}</p>
-        //     </card>
-        // )
-    // })
+    // let params = useParams();
 
   return (
     <div className="profile">
-        <div className="posts">
-            {/* {postItems} */}
-        </div>
+        {/* <div className="posts">{params.profileId}</div> */}
+        <h2>{profile.username}</h2>
+        <p>{profile.post[0]}</p>
     </div>
   );
 }

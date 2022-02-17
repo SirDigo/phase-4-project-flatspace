@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <header>
-        <h1 id="main-header">flatspace</h1>
-        <div id="header-links">
-            <span><Link to="/about">about</Link></span>
-            <span><Link to="/login">login</Link></span>
-            <span><Link to="/signup">sign up</Link></span>
-        </div>
+        <h1 className="main-header">flatspace</h1>
+        <ul className="header-links">
+            <li className="header-link"><Link to="/about">about</Link></li>
+            <li className="header-link"><Link to="/login">login</Link></li>
+            <li className="header-link"><Link to="/signup">sign up</Link></li>
+        </ul>
     </header>
   );
 }

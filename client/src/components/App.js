@@ -5,13 +5,21 @@ import LoginForm from "./LoginForm";
 import About from "./About";
 import AddPostForm from "./AddPostForm";
 import Profile from "./Profile";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 
 function App() {
   const [errors, setErrors] = useState(false)
   const [posts, setPosts] = useState([])
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const [profiles, setProfiles] = useState([]);
+  const [profile, setProfile] = useState([]);
+
+  useEffect(() => {
+    fetch("/users")
+    .then((r) => r.json())
+    .then(data => setProfiles(data))
+})
 
   // setting the state to authenticated user. If the user is not authenticated, it will be redirected to the login page.
   useEffect(() => {
@@ -50,7 +58,6 @@ function App() {
 
   if (!isAuthenticated) return <LoginForm error={'please login'} setIsAuthenticated={setIsAuthenticated} setUser={setUser} />;
 
-
   return (
     <div className="App">
       <Routes>
@@ -58,8 +65,10 @@ function App() {
         <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
         <Route path="/about" element={<About />} />
         <Route path="/addpost" element={<AddPostForm handlePost={handlePost} errors={errors}/>} />
-        <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/" element={<Home />} />
+        {/* <Route path="/profileId" element={<Profile pro={profile} />} /> */}
+        <Route path="/" element={<Home profiles={profiles} />}>
+          <Route path="/:profileId" element={<Profile />} />
+        </Route>
       </Routes>
     </div>
   );

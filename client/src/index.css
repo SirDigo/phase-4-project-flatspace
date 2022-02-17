@@ -16,5 +16,60 @@ body {
 }
 
 .signup-input {
-  width: 6%
+  width: 8%
+}
+
+.profile-cards {
+  width: 100%;
+}
+
+.profile-card {
+  background-color: rgb(232, 249, 237);
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 10;
+  padding: 0.2rem;
+  width: 12%;
+  border-radius: 0.5rem;
+}
+
+.header-links {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0.2rem;
+  border-radius: 0.6rem;
+}
+
+.header-link {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0.2rem;
+  border-radius: 0.6rem;
+}
+
+.main-header {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 2;
+  padding: 0.1rem;
+}
+
+.profile-link {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  text-align: center;
+  padding: 4px 5px;
+  display: inline-block;
+}
+
+.profile-link:visited {
+  color: rgb(0, 0, 0);
+}
+
+.profile-link:hover {
+  color: rgb(255, 60, 158);
+  font-family: cursive;
 }
