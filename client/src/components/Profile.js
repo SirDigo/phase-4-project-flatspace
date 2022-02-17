@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 function Profile() {
     const [profile, setProfile] = useState({});
@@ -18,19 +18,45 @@ function Profile() {
 
     if (!isLoaded) return <h2>Loading...</h2>;
 
+    const profileItems = profile.posts.map(post => {
+      const path = `/${id}/${post.id}`;
+      return (
+      <div key={post.id}>
+        {/* <Post userId={id} postId={post.id}/> */}
+        <h3>{post.title}</h3>
+        <p>{post.content}</p>
+        <Link to={path}>view</Link>
+      </div>
+      );
+    });
+
+
   return (
-    <div className="profile-display">
+    <div>
+      <div className="profile-display">
         <h1>{profile.username}</h1>
-        {profile.posts.map(post => {
+        {profileItems}
+      </div>
+      {/* <div>
+          {profile.posts.map(post => {
+          // const path = `/${id}/${post.id}`
           return (
-            <div className="post" key={post.id}>
-            <h3>{post.title}</h3>
-            <p>{post.content}</p>
-            </div>
-          )
+            <div key={post.id}>
+              <h3>{post.title}</h3>
+              <p>{post.content}</p> */}
+              {/* <Post userId={id} postId={post.id}/> */}
+              {/* <Routes>
+                <Route path="/:id/:postId" element={<Post userId={id} postId={post.id}/>}/>
+              </Routes>
+              <Link to={Post(id, post.id)}>view</Link>  */}
+            {/* </div> */}
+          {/* )
         })}
+      </div> */}
+    {/* <Post userId={profile.id}/> */}
     </div>
   );
+
 }
 
 export default Profile;
