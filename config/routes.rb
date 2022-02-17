@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  
-  resources :comments, only: [:index]
-  resources :posts, only: [:index, :show]
+
+  resources :comments, only: [:index, :update, :create]
+  resources :posts
   resources :users, only: [:update, :create, :index, :show]
   
   get '/users/:id/posts/:postid', to: 'users#post'

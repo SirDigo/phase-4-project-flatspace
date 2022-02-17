@@ -3,15 +3,17 @@ import { Link } from "react-router-dom";
 
 function Header( {state} ) {
   return (
-    <header>
-        <h1 className="main-header">flatspace</h1>
-        <ul className="header-links">
-            <li className="header-link"><Link to="/about">about</Link></li>
-            <li className="header-link"><Link to="/login">login</Link></li>
-            <li className="header-link"><Link to="/signup">sign up</Link></li>
-            <li className="header-link"><Link to="/addpost">add post</Link></li>
-        </ul>
-    </header>
+    <div style={{backgroundColor: "#CFDECF"}}>
+      <div className="container">
+        <div className="row">
+          <h2 className="six columns u-pull-left" style={{color: "#3A553A"}}>Flatspace</h2>
+          <br></br>
+          <h5 className="two columns"><Link to="/about">About</Link></h5>
+          <h5 className="two columns"><Link to="/login">Login</Link></h5>
+          <h5 className="two columns"><Link to="/signup">SignUp</Link></h5>
+        </div>
+      </div>
+    </div>
   );
 }
 
