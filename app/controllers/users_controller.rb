@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   # before_action :error_message_not_found, unless: :find_by_id, only: [:update]
-  skip_before_action :authorize_user, only: [:create, :show, :index]
+  skip_before_action :authorize_user, only: [:create, :show, :index, :posts, :post]
   # take :show, :index out once I am able to log in, only :create accessible outside login
 
   def index
@@ -10,9 +10,21 @@ class UsersController < ApplicationController
   # adding this for testing
 
   def show
-    # byebug
     u = User.find_by(id: params[:id])
     render json: u, status: :ok
+  end
+
+  def posts
+    @user = User.find_by(id: params[:id])
+    p = @user.posts
+    render json: p, status: :ok
+  end
+
+  def post
+    @user = User.find_by(id: params[:id])
+    # posts = @user.posts
+    post = @user.posts.find_by(id: params[:postid])
+    render json: post, status: :ok
   end
 
 

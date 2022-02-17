@@ -5,6 +5,7 @@ import LoginForm from "./LoginForm";
 import About from "./About";
 import AddPostForm from "./AddPostForm";
 import Profile from "./Profile";
+import Post from "./Post";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -37,7 +38,6 @@ function App() {
     fetch('/posts')
     .then(res => res.json())
     .then(setPosts);
-
   },[]);
 
   function handlePost(obj){
@@ -65,8 +65,9 @@ function App() {
         <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
         <Route path="/about" element={<About />} />
         <Route path="/addpost" element={<AddPostForm handlePost={handlePost} errors={errors}/>} />
+        <Route path="/:id/:postId" element={<Post />}/>
+        <Route path="/:id/*" element={<Profile />} />
         <Route path="/" element={<Home profiles={profiles} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/>} />
-        <Route path="/:id" element={<Profile />} />
       </Routes>
     </div>
   );
