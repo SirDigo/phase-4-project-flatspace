@@ -14,7 +14,7 @@ function Profile() {
       setProfile(profile);
       setIsLoaded(true)
       })
-    }, [])
+    }, [id])
 
     if (!isLoaded) return <h2>Loading...</h2>;
 
