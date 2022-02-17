@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
-    before_action :error_message_not_found, unless: :find_by_id, only: [:destroy, :update]
+    # before_action :error_message_not_found, unless: :find_by_id, only: [:destroy, :update]
+    skip_before_action :authorize_user, only: [:create, :show, :index]
 
     #GET /comments
     def index

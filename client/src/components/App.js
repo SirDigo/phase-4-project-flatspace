@@ -5,7 +5,7 @@ import LoginForm from "./LoginForm";
 import About from "./About";
 import AddPostForm from "./AddPostForm";
 import Profile from "./Profile";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   const [errors, setErrors] = useState(false)
@@ -13,7 +13,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [profiles, setProfiles] = useState([]);
-  const [profile, setProfile] = useState([]);
+  // const [profile, setProfile] = useState([]);
 
   useEffect(() => {
     fetch("/users")
@@ -65,10 +65,8 @@ function App() {
         <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
         <Route path="/about" element={<About />} />
         <Route path="/addpost" element={<AddPostForm handlePost={handlePost} errors={errors}/>} />
-        {/* <Route path="/profileId" element={<Profile pro={profile} />} /> */}
-        <Route path="/" element={<Home profiles={profiles} />}>
-          <Route path="/:profileId" element={<Profile />} />
-        </Route>
+        <Route path="/:id" element={<Profile />} />
+        <Route path="/" element={<Home profiles={profiles} />} />
       </Routes>
     </div>
   );
