@@ -1,37 +1,50 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import CommentForm from "./CommentForm";
 
-function Post( {userId, postId} ) {
+function Post() {
+
   const [post, setPost] = useState([]);
-  // const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // const id = p.id;
 
   // const path = `/${userId}/${postId}`
-  // const { postId } = useParams();
+  const params = useParams();
+  console.log(params);
+
 
     useEffect(() => {
-      fetch(`/users/${userId}/posts/${postId}`)
+      fetch(`/posts/${params.postId}`)
       .then((r) => r.json())
-      .then(post => {
-      setPost(post);
-      // setIsLoaded(true)
-      console.log(post)
+      .then(po => {
+        setPost(po);
+      setIsLoaded(true)
       })
-    }, [userId, postId])
+    }, [])
 
-    // if (!isLoaded) return <h2>Loading...</h2>;
+    // const { ti, con } = post;
+    // const [title, setTitle] = useState("");
+    // const [content, setContent] = useState("");
+    // setTitle(ti);
+    // setContent(con);
 
-    // const commentItems = post.comments.map(comment => {
-    //   return (
-    //       <p key={comment.id}>
-    //         {comment.content}
-    //       </p>
-    //   )
-    // })
+    if (!isLoaded) return <h2>Loading...</h2>;
+
+    const commentItems = post.comments.map(comment => {
+      return (
+          <p key={comment.id}>
+            {comment.content}
+          </p>
+      )
+    })
 
   return (
     <div>
         <h2>{post.title}</h2>
         <p>{post.content}</p>
-        {/* <div>{commentItems}</div> */}
+        <div>{commentItems}</div>
+        <CommentForm />
     </div>
   );
 }

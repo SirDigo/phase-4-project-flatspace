@@ -1,7 +1,6 @@
 import React, { useState} from 'react'
 
 function CommentForm({addComment}) {
-
   const [formData, setFormData] = useState({
     content:''
   })
@@ -33,10 +32,11 @@ function CommentForm({addComment}) {
       .then((r) => r.json())
       .then(addComment);
   }
-
+    
   return (
     <div >
-      {errors?errors.map(e => <div>{e}</div>):null}
+      {/* {errors?errors.map(e => <div>{e}</div>):null} */}
+
       <form onSubmit={handleSubmit}>
         <h3>What's your thought on this?</h3>
         <input
@@ -57,4 +57,42 @@ function CommentForm({addComment}) {
     </div>
   );
 }
+
+// const CommentForm = ({
+//   handleSubmit,
+//   submitLabel,
+//   hasCancelButton = false,
+//   handleCancel,
+//   initialText = "",
+// }) => {
+//   const [text, setText] = useState(initialText);
+//   const isTextareaDisabled = text.length === 0;
+//   const onSubmit = (event) => {
+//     event.preventDefault();
+//     handleSubmit(text);
+//     setText("");
+//   };
+//   return (
+//     <form onSubmit={onSubmit}>
+//       <textarea
+//         className="comment-form-textarea"
+//         value={text}
+//         onChange={(e) => setText(e.target.value)}
+//       />
+//       <button className="comment-form-button" disabled={isTextareaDisabled}>
+//         {submitLabel}
+//       </button>
+//       {hasCancelButton && (
+//         <button
+//           type="button"
+//           className="comment-form-button comment-form-cancel-button"
+//           onClick={handleCancel}
+//         >
+//           Cancel
+//         </button>
+//       )}
+//     </form>
+//   );
+// };
+
 export default CommentForm;
