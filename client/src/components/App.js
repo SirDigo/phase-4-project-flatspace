@@ -38,7 +38,6 @@ function App() {
     fetch('/posts')
     .then(res => res.json())
     .then(setPosts);
-
   },[]);
 
   function handlePost(obj){
