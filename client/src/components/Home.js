@@ -10,13 +10,14 @@ function Home( { profiles } ) {
     const profileItems = profiles.map(user => {
         const path = `/${user.id}`
         return (
-            <div key={user.id} >
-              <ul key={user.id} className="button">
-                  <Link key={user.id} to={path} className="profile-link">{user.username}</Link>
-              </ul>
+            <div key={user.id} style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+              <a key={user.id} className="button button-first " href={path}>
+               {user.username}
+              </a>
             </div>
         )
     })
+    // <Link key={user.id} to={path}>{user.username}</Link>
 
     function splitArray(arr, num){
       const x = arr.filter((element, index) => {
@@ -32,10 +33,11 @@ function Home( { profiles } ) {
     return (
       <div className="container">
         <div className="row">
-          <div className="six columns">
+          <div className="twelve columns">
             <Header />
           </div>
         </div>
+        <br></br>
         <div className="row">
           <div className="four columns">{profiles1}</div>
           <div className="four columns">{profiles2}</div>
