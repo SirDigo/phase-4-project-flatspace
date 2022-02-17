@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import Header from "./Header";
 import Home from "./Home";
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
@@ -6,7 +7,7 @@ import About from "./About";
 import AddPostForm from "./AddPostForm";
 import Profile from "./Profile";
 import Post from "./Post";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 function App() {
   const [errors, setErrors] = useState(false)
@@ -14,13 +15,33 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [profiles, setProfiles] = useState([]);
-  // const [profile, setProfile] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/users")
     .then((r) => r.json())
     .then(data => setProfiles(data))
 }, [])
+
+function handleSignUp(u){
+  fetch('/users', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body:JSON.stringify(u)
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.errors){
+      setErrors(data.errors)
+    } else {
+      setProfiles([...profiles, data]);
+      setIsAuthenticated(true);
+      navigate(`/${data.id}`);
+      setUser(data);
+    }
+  })
+}
 
   // setting the state to authenticated user. If the user is not authenticated, it will be redirected to the login page.
   useEffect(() => {
@@ -60,14 +81,15 @@ function App() {
 
   return (
     <div className="App">
+      <Header />
       <Routes>
-        <Route path="/signup" element={<SignUpForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
+        <Route path="/signup" element={<SignUpForm handleSignUp={handleSignUp} setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
         <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
         <Route path="/about" element={<About />} />
         <Route path="/addpost" element={<AddPostForm handlePost={handlePost} errors={errors}/>} />
         <Route path="/:id/:postId" element={<Post />}/>
         <Route path="/:id/*" element={<Profile />} />
-        <Route path="/" element={<Home profiles={profiles} setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user}/>} />
+        <Route path="/" element={<Home profiles={profiles} setIsAuthenticated={setIsAuthenticated} user={user}/>} />
       </Routes>
     </div>
   );

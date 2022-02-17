@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header( {state} ) {
   return (
     <div style={{backgroundColor: "#CFDECF"}}>
       <div className="container">
