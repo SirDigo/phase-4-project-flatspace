@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-function Profile() {
+function Profile( {user} ) {
     const [profile, setProfile] = useState({});
     const [isLoaded, setIsLoaded] = useState(false);
+    console.log(user)
 
     const { id } = useParams();
 
@@ -29,17 +30,23 @@ function Profile() {
       );
     });
 
-
-  return (
-    <div>
-      <div className="profile-display">
-        <h1>{profile.username}</h1>
-        <h2>posts:</h2>
-        {profileItems}
+    if (user === true) {
+      return (
+        <div>
+          <div className="profile-display">
+            <h1>{profile.username}</h1>
+            <h2>posts:</h2>
+            {profileItems}
+          </div>
+        </div>
+      );    
+    } else {
+      return (
+      <div>
+        there is nothing here
       </div>
-    </div>
-  );
-
+      )
+    }
 }
 
 export default Profile;

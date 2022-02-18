@@ -11,7 +11,7 @@ function Post() {
 
   // const path = `/${userId}/${postId}`
   const params = useParams();
-  console.log(params);
+  // console.log(params);
 
 
     useEffect(() => {
