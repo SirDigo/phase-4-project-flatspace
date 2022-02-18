@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CommentForm from "./CommentForm";
 
-function Post() {
+function Post(handleAddComment) {
 
   const [post, setPost] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -11,8 +11,26 @@ function Post() {
 
   // const path = `/${userId}/${postId}`
   const params = useParams();
-  console.log(params);
+  // console.log(params);
 
+  // function handleAddComment(u){
+  //   fetch('/comments', {
+  //     method: 'POST',
+  //     headers: {'Content-Type': 'application/json'},
+  //     body:JSON.stringify(u)
+  //   })
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     if(data.errors){
+  //       setErrors(data.errors)
+  //     } else {
+  //       setProfiles([...profiles, data]);
+  //       setIsAuthenticated(true);
+  //       navigate(`/${data.id}`);
+  //       setUser(data);
+  //     }
+  //   })
+  // }
 
     useEffect(() => {
       fetch(`/posts/${params.postId}`)
@@ -44,7 +62,7 @@ function Post() {
         <h2>{post.title}</h2>
         <p>{post.content}</p>
         <div>{commentItems}</div>
-        <CommentForm />
+        <CommentForm post={post} handleAddComment={handleAddComment}/>
     </div>
   );
 }

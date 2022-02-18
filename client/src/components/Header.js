@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Header( {isAuthenticated, user, setIsAuthenticated, setUser} ) {
   const navigate = useNavigate();
-  console.log(user);
+  // console.log(user);
 
   const logout = () => {
     fetch('/logout',{
@@ -26,7 +26,7 @@ function Header( {isAuthenticated, user, setIsAuthenticated, setUser} ) {
               <h5 className="two columns"><Link to="/about">about</Link></h5>
               {/* <h5 className="two columns"><a href={`/${user.id}`}>profile</a></h5> */}
               <h5 className="two columns"><Link to="/" onClick={logout}>logout</Link></h5>
-              <h5 className="two columns"><Link to="/addpost">post</Link></h5>
+              {/* <h5 className="two columns"><Link to="/addpost">post</Link></h5> */}
             </>
             ) : (
             <>
