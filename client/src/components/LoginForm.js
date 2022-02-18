@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function LoginForm({setUser,setIsAuthenticated}) {
+function LoginForm({ handleLogin, setUser,setIsAuthenticated}) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -13,7 +13,7 @@ function LoginForm({setUser,setIsAuthenticated}) {
 
     const history = useNavigate();
 
-    async function handleSubmit(e){
+    function handleSubmit(e){
       e.preventDefault()
       const user = {
           username: username,

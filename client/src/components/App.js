@@ -43,19 +43,7 @@ function handleSignUp(u){
   })
 }
 
-  // setting the state to authenticated user. If the user is not authenticated, it will be redirected to the login page.
   useEffect(() => {
-    fetch('/authorized_user')
-    .then((res) => {
-      if (res.ok) {
-        res.json()
-        .then((user) => {
-          setIsAuthenticated(true);
-          setUser(user);
-        });
-      }
-    });
-
     fetch('/posts')
     .then(res => res.json())
     .then(setPosts);
@@ -77,19 +65,18 @@ function handleSignUp(u){
       })
   }
 
-  if (!isAuthenticated) return <LoginForm error={'please login'} setIsAuthenticated={setIsAuthenticated} setUser={setUser} />;
 
   return (
     <div className="App">
-      <Header />
+      <Header isAuthenticated={isAuthenticated} profile={user} setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>
       <Routes>
-        <Route path="/signup" element={<SignUpForm handleSignUp={handleSignUp} setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
+        <Route path="/signup" element={<SignUpForm handleSignUp={handleSignUp} />} />
         <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
         <Route path="/about" element={<About />} />
         <Route path="/addpost" element={<AddPostForm handlePost={handlePost} errors={errors}/>} />
         <Route path="/:id/:postId" element={<Post />}/>
         <Route path="/:id/*" element={<Profile />} />
-        <Route path="/" element={<Home profiles={profiles} setIsAuthenticated={setIsAuthenticated} user={user}/>} />
+        <Route path="/" element={<Home profiles={profiles} />} />
       </Routes>
     </div>
   );

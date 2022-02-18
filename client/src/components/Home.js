@@ -1,6 +1,6 @@
 import React from "react";
 // import Header from "./Header";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import "../skeleton.css"
 import "../normalize.css"
@@ -34,7 +34,7 @@ function Home( { profiles } ) {
       <div className="container">
         <div className="row">
           <div className="twelve columns">
-            <Header />
+            {/* <Header /> */}
           </div>
         </div>
         <br></br>
