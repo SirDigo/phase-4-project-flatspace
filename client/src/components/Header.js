@@ -24,7 +24,7 @@ function Header( {isAuthenticated, user, setIsAuthenticated, setUser} ) {
             {isAuthenticated === true ? (
             <>
               <h5 className="two columns"><Link to="/about" style={{color: "#3A553A"}}>about</Link></h5>
-              <h5 className="two columns"><a href={`/${user.id}`} style={{color: "#3A553A"}}>profile</a></h5>
+              {/* <h5 className="two columns"><a href={`/${user.id}`} style={{color: "#3A553A"}}>profile</a></h5> */}
               <h5 className="two columns"><Link to="/" onClick={logout} style={{color: "#3A553A"}}>logout</Link></h5>
               {/* <h5 className="two columns"><Link to="/addpost">post</Link></h5> */}
             </>

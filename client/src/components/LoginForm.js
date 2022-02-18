@@ -45,22 +45,25 @@ function LoginForm({ handleLogin, setUser,setIsAuthenticated}) {
 
 
   return (
+    <form onSubmit={handleSubmit} className="container">
+      <h1 style={{color: "#87AB88"}}>Login</h1>
+      <div className='row'>
+        <div className='six columns'>
+          <label for="username" style={{color: "#87AB88"}}>Your Username</label>
+          <input id="username" className="u-full-width" type="text" placeholder="Bobbyboi123" value={username} onChange={(e) => setUsername(e.target.value)} />
+        </div>
+        <div className='six columns'>
+          <label for="email" style={{color: "#87AB88"}}>Your Email</label>
+          <input id="email" className="u-full-width" type="password" placeholder="test@mailbox.com" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </div>
+      </div>
+      <br></br>
+      <input type="submit" value="login" className='button button-first'/>
       
-    <> 
-    <h1>login</h1>
-    <form onSubmit={handleSubmit}>
-    {/* <label> */}
-      <input className="login-input" type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-    {/* </label> */}
-    {/* <label> */}
-    <input className="login-input" type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-    {/* </label> */}
-   
-    <input type="submit" value="login" />
-  </form>
-  {/* if there is error, it will be displayed, other wise do null */}
-  {error?<div>{error}</div>:null}
-    </>
+      {/* if there is error, it will be displayed, other wise do null */}
+      {error?<h5 style={{color: "#E13914"}}>{error}</h5>:null}
+    </form>
+  
 )
 }
 
