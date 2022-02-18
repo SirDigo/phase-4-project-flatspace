@@ -15,6 +15,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [profiles, setProfiles] = useState([]);
+  // const [comments, setComments] = useState([]);
 
   const navigate = useNavigate();
 
@@ -83,7 +84,10 @@ function handleSignUp(u){
           setPosts([...posts,data])
         }
       })
-  }
+    }
+  //   function handleAddComment(newComment){
+  //   setComments([newComment,...comments])
+  // }
 
 
   return (
@@ -94,8 +98,8 @@ function handleSignUp(u){
         <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
         <Route path="/about" element={<About />} />
         <Route path="/addpost" element={<AddPostForm handlePost={handlePost} errors={errors}/>} />
-        <Route path="/:id/:postId" element={<Post />}/>
-        <Route path="/:id/*" element={<Profile user={user} />} />
+        <Route path="/:id/:postId" element={<Post  />}/>
+        <Route path="/:id" element={<Profile />} />
         <Route path="/" element={<Home profiles={profiles} />} />
       </Routes>
     </div>

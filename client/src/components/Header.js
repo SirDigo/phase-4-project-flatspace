@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Header( {isAuthenticated, user, setIsAuthenticated, setUser} ) {
   const navigate = useNavigate();
-  console.log(user);
+  // console.log(user);
 
   const logout = () => {
     fetch('/logout',{

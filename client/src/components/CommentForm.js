@@ -1,9 +1,12 @@
 import React, { useState} from 'react'
+import { useParams } from "react-router-dom";
 
-function CommentForm({addComment}) {
+
+function CommentForm({addComment, post}) {
   const [formData, setFormData] = useState({
     content:''
   })
+  const { id } = useParams();
 
 
   function handleChange(event) {
@@ -18,11 +21,13 @@ function CommentForm({addComment}) {
 
     const newComment = {
       ...formData,
+      post_id: post.id,
+      user_id: id,
       likes: 0,
       dislikes: 0
     };
 
-    fetch("/comments", {
+    fetch(`/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +35,7 @@ function CommentForm({addComment}) {
       body: JSON.stringify(newComment),
     })
       .then((r) => r.json())
-      .then(addComment);
+      .then(data => console.log(data));
   }
     
   return (
