@@ -47,7 +47,14 @@ function handleSignUp(u){
   useEffect(() => {
     fetch('/authorized_user')
     .then((res) => {
-      if (res.ok) {
+      if (res !== true) {
+        res.json()
+        .then(() => {
+          setIsAuthenticated(false);
+          setUser(null);
+        })
+      }
+      else if (res.ok) {
         res.json()
         .then((user) => {
           setIsAuthenticated(true);
@@ -55,11 +62,13 @@ function handleSignUp(u){
         });
       }
     });
+  },[]);
 
+  useEffect(() => {
     fetch('/posts')
     .then(res => res.json())
     .then(setPosts);
-  },[]);
+  }, []);
 
   function handlePost(obj){
       fetch('/posts',{

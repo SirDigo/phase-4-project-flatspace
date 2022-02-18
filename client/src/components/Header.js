@@ -21,10 +21,10 @@ function Header( {isAuthenticated, user, setIsAuthenticated, setUser} ) {
           <div className="row">
             <h2 className="six columns u-pull-left" style={{color: "#3A553A"}}><a href="/">Flatspace</a></h2>
             <br></br>
-            {isAuthenticated ? (
+            {isAuthenticated === true ? (
             <>
               <h5 className="two columns"><Link to="/about">about</Link></h5>
-              {/* <h5 className="two columns"><a href={`/${user.id}`}>profile</a></h5> */}
+              <h5 className="two columns"><a href={`/${user.id}`}>profile</a></h5>
               <h5 className="two columns"><Link to="/" onClick={logout}>logout</Link></h5>
               {/* <h5 className="two columns"><Link to="/addpost">post</Link></h5> */}
             </>
