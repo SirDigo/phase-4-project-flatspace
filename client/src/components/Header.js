@@ -16,23 +16,23 @@ function Header( {isAuthenticated, user, setIsAuthenticated, setUser} ) {
     })}
 
     return (
-      <div style={{backgroundColor: "#CFDECF"}}>
+      <div style={{backgroundColor: "#87AB88"}}>
         <div className="container">
           <div className="row">
-            <h2 className="six columns u-pull-left" style={{color: "#3A553A"}}><a href="/">Flatspace</a></h2>
+            <h2 className="six columns u-pull-left"><a href="/" style={{color: "#3A553A"}}>Flatspace</a></h2>
             <br></br>
             {isAuthenticated === true ? (
             <>
-              <h5 className="two columns"><Link to="/about">about</Link></h5>
-              <h5 className="two columns"><a href={`/${user.id}`}>profile</a></h5>
-              <h5 className="two columns"><Link to="/" onClick={logout}>logout</Link></h5>
+              <h5 className="two columns"><Link to="/about" style={{color: "#3A553A"}}>about</Link></h5>
+              <h5 className="two columns"><a href={`/${user.id}`} style={{color: "#3A553A"}}>profile</a></h5>
+              <h5 className="two columns"><Link to="/" onClick={logout} style={{color: "#3A553A"}}>logout</Link></h5>
               {/* <h5 className="two columns"><Link to="/addpost">post</Link></h5> */}
             </>
             ) : (
             <>
-              <h5 className="two columns"><Link to="/about">about</Link></h5>
-              <h5 className="two columns"><Link to="/login">login</Link></h5>
-              <h5 className="two columns"><Link to="/signup">sign up</Link></h5>
+              <h5 className="two columns"><Link to="/about" style={{color: "#3A553A"}}>about</Link></h5>
+              <h5 className="two columns"><Link to="/login" style={{color: "#3A553A"}}>login</Link></h5>
+              <h5 className="two columns"><Link to="/signup" style={{color: "#3A553A"}}>sign up</Link></h5>
             </>
             )
             }
