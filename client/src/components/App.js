@@ -44,6 +44,17 @@ function handleSignUp(u){
 }
 
   useEffect(() => {
+    fetch('/authorized_user')
+    .then((res) => {
+      if (res.ok) {
+        res.json()
+        .then((user) => {
+          setIsAuthenticated(true);
+          setUser(user);
+        });
+      }
+    });
+
     fetch('/posts')
     .then(res => res.json())
     .then(setPosts);
@@ -68,7 +79,7 @@ function handleSignUp(u){
 
   return (
     <div className="App">
-      <Header isAuthenticated={isAuthenticated} profile={user} setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>
+      <Header isAuthenticated={isAuthenticated} user={user} setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>
       <Routes>
         <Route path="/signup" element={<SignUpForm handleSignUp={handleSignUp} />} />
         <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
