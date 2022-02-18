@@ -17,7 +17,11 @@ class UsersController < ApplicationController
 
   def reveal
     @user = User.find_by(id: session[:user_id])
-    render json: @user, status: :ok
+      if @user.authorized?
+        render json: @user, status: :ok
+      else
+        render json: { errors: [user.errors.full_messages] }, status: :unauthorized
+      end
   end
 
   def posts

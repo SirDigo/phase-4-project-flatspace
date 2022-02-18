@@ -46,7 +46,14 @@ function handleSignUp(u){
   useEffect(() => {
     fetch('/authorized_user')
     .then((res) => {
-      if (res.ok) {
+      if (res !== true) {
+        res.json()
+        .then(() => {
+          setIsAuthenticated(false);
+          setUser(null);
+        })
+      }
+      else if (res.ok) {
         res.json()
         .then((user) => {
           setIsAuthenticated(true);
@@ -54,11 +61,13 @@ function handleSignUp(u){
         });
       }
     });
+  },[]);
 
+  useEffect(() => {
     fetch('/posts')
     .then(res => res.json())
     .then(setPosts);
-  },[]);
+  }, []);
 
   function handlePost(obj){
       fetch('/posts',{
@@ -86,7 +95,7 @@ function handleSignUp(u){
         <Route path="/about" element={<About />} />
         <Route path="/addpost" element={<AddPostForm handlePost={handlePost} errors={errors}/>} />
         <Route path="/:id/:postId" element={<Post />}/>
-        <Route path="/:id/*" element={<Profile />} />
+        <Route path="/:id/*" element={<Profile user={user} />} />
         <Route path="/" element={<Home profiles={profiles} />} />
       </Routes>
     </div>
