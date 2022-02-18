@@ -11,6 +11,11 @@ body {
   padding: 10;
 }
 
+a {
+  text-decoration: none; 
+  /* color: #3A553A; */
+}
+
 .login-input {
   width: 5%
 }
