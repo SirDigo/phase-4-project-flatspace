@@ -53,8 +53,8 @@ function LoginForm({ handleLogin, setUser,setIsAuthenticated}) {
           <input id="username" className="u-full-width" type="text" placeholder="Bobbyboi123" value={username} onChange={(e) => setUsername(e.target.value)} />
         </div>
         <div className='six columns'>
-          <label for="email" style={{color: "#87AB88"}}>Your Email</label>
-          <input id="email" className="u-full-width" type="password" placeholder="test@mailbox.com" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <label for="password" style={{color: "#87AB88"}}>Your Password</label>
+          <input id="password" className="u-full-width" type="password" placeholder="Password 123" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
       </div>
       <br></br>

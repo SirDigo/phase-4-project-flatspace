@@ -30,7 +30,7 @@ function Profile( {user} ) {
       );
     });
 
-    if (user === true) {
+    // if (user === true) {
       return (
         <div>
           <div className="profile-display">
@@ -40,13 +40,13 @@ function Profile( {user} ) {
           </div>
         </div>
       );    
-    } else {
-      return (
-      <div>
-        there is nothing here
-      </div>
-      )
-    }
+    // } else {
+    //   return (
+    //   <div>
+    //     there is nothing here
+    //   </div>
+    //   )
+    // }
 }
 
 export default Profile;
