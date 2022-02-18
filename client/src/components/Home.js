@@ -32,11 +32,6 @@ function Home( { profiles } ) {
 
     return (
       <div className="container">
-        <div className="row">
-          <div className="twelve columns">
-            {/* <Header /> */}
-          </div>
-        </div>
         <br></br>
         <div className="row">
           <div className="four columns">{profiles1}</div>
