@@ -43,20 +43,21 @@ function CommentForm({addComment, post}) {
       {/* {errors?errors.map(e => <div>{e}</div>):null} */}
 
       <form onSubmit={handleSubmit}>
-        <h3>What's your thought on this?</h3>
+        <h1>What are your thoughts on this?</h1>
         <input
+          className='u-full-width'
           type="text"
           name="content"
           onChange={handleChange}
           value={formData.content}
           placeholder="Share your comment here ..."
         />
-        <br />
+        <br></br>
         <input
           type="submit"
           name="submit"
           value="Comment"
-          className="submit"
+          className="submit button button-first"
         />
       </form>
     </div>

@@ -58,11 +58,17 @@ function Post(handleAddComment) {
     })
 
   return (
-    <div>
-        <h2>{post.title}</h2>
-        <p>{post.content}</p>
-        <div>{commentItems}</div>
-        <CommentForm post={post} handleAddComment={handleAddComment}/>
+    <div className="container" style={{color: "#87AB88"}}>
+      <div className="row">
+        <div className="six columns"> 
+          <h1>{post.title}</h1>
+          <p>{post.content}</p>
+        </div>
+        <div className="six columns">
+          <CommentForm post={post} handleAddComment={handleAddComment}/>
+          <div>{commentItems}</div>
+        </div>
+      </div>
     </div>
   );
 }
