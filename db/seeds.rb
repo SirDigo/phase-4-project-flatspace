@@ -14,6 +14,6 @@ puts "Seeding Posts..."
 
 puts "Seeding comments..."
 
-100.times{Comment.create({content: Faker::Lorem.sentences, post_id: Post.all.sample.id, user_id: User.all.sample.id})}
+100.times{Comment.create({content: Faker::Lorem.sentence, post_id: Post.all.sample.id, user_id: User.all.sample.id})}
 
 puts "Done Seeding!"

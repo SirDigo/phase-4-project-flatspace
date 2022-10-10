@@ -1,5 +1,6 @@
 {
   "name": "phase-4-deploying-app-demo",
+  "main": "client/public/index.js",
   "description": "Build scripts for Heroku",
   "engines": {
     "node": "16.x"

@@ -1,32 +1,39 @@
 class UsersController < ApplicationController
+  skip_before_action :authorize_user, only: [:create, :index, :show, :reveal]
+  # include ActionController::Helpers
   # before_action :error_message_not_found, unless: :find_by_id, only: [:update]
-  skip_before_action :authorize_user, only: [:create, :show, :index, :reveal]
+  # skip_before_action :authorize_user, only: [:create, :show, :index, :reveal]
   # take :show, :index out once I am able to log in, only :create accessible outside login
   # [:create, :show, :index, :posts, :post, :reveal]
-
+  
   def index
     render json: User.all, status: :ok
   end
 
-  # adding this for testing
-
-  def show
-    u = User.find_by(id: params[:id])
-    render json: u, status: :ok
+  def reveal
+    if current_user
+      render json: current_user, status: :ok
+    else
+      render json: "No current user set", status: :unauthorized
+    end
   end
 
-  def reveal
-    @user = User.find_by(id: session[:user_id])
-      if @user.authorized?
-        render json: @user, status: :ok
-      else
-        render json: { errors: [user.errors.full_messages] }, status: :unauthorized
-      end
+  def create
+    user = User.create!(user_params)
+    session[:current_user] = user.id
+    render json: user, status: :created
+  rescue ActiveRecord::RecordInvalid => invalid
+    render json: { errors: invalid.record.errors }, status: :unprocessable_entity
+  end
+
+  def show
+      u = User.find_by(id: params[:id])
+      render json: u, status: :ok
   end
 
   def posts
-    @user = User.find_by(id: params[:id])
-    p = @user.posts
+    user = User.find(params[:id])
+    p = user.posts
     render json: p, status: :ok
   end
 
@@ -38,16 +45,7 @@ class UsersController < ApplicationController
   end
 
 
-    #POST/SIGNUP /signup 
-    def create
-        user = User.create(user_params)
-        if user.valid?
-          session[:user_id] = user.id
-          render json: user, status: :created
-        else
-          render json: { errors: [user.errors.full_messages] }, status: :unprocessable_entity
-        end
-      end
+
 
     #PATCH /users/:id
     def update
@@ -62,9 +60,9 @@ class UsersController < ApplicationController
     #Private Methods
     private
 
-    def find_by_session
-      @user = User.find_by(id: session[:user_id])
-    end
+    # def find_by_session
+    #   @user = User.find_by(id: session[:user_id])
+    # end
 
 
     def user_params
@@ -72,12 +70,12 @@ class UsersController < ApplicationController
       #  , :image_url, :bio, :flatiron_status
     end
 
-    def error_message_not_found
-        render json: { error: "User not found" }, status: :not_found
-    end
+    # def error_message_not_found
+    #     render json: { error: "User not found" }, status: :not_found
+    # end
 
-    def authorize
-      return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
-    end
+    # def authorize
+    #   return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+    # end
     
 end

@@ -1,46 +1,29 @@
 class CommentsController < ApplicationController
-    # before_action :error_message_not_found, unless: :find_by_id, only: [:destroy, :update]
-    skip_before_action :authorize_user, only: [:create, :show, :index]
+    skip_before_action :authorize_user, only: [:show, :index, :create]
 
-    #GET /comments
     def index
-        render json: Comment.all, status: :ok
+        render json: Comment.all
     end
 
-    #POST /comments
+    def show
+        c = Comment.find(params[:id])
+        render json: c, status: :ok
+    end
+
     def create
-        comment = Comment.new(params_permit)
-        if comment.save
-            render json: comment, status: :created
-        else
-            render json: { errors: [comment.errors.full_messages] }, status: :unprocessable_entity
-        end
+        puts "comment_params", comment_params
+        comment = Comment.create!(comment_params)
+        render json: comment, status: :created
+    rescue ActiveRecord::RecordInvalid => invalid
+        render json: {errors: invalid.record.errors}, status: :unprocessable_entity
     end
 
-    #DELETE /comments/:id
-    def destroy
-        @comment.destroy
-        head :no_content
-    end
-
-    #PATCH /comments/:id
-    def update
-        @comment.update(params_permit)
-        render json: @comment, status: :ok
-    end
-
-    #Private Methods
     private
 
-    def find_by_id
-        @comment = Comment.find_by(id: params[:id])
+    def comment_params
+        cp = params.require(:comment).permit(:user_id, :post_id, :content)
+        cp[:user_id] = current_user[:id]
+        return cp
     end
 
-    def params_permit
-        params.permit(:content, :post_id, :user_id)
-    end
-
-    def error_message_not_found
-        render json: { error: "Comment not found" }, status: :not_found
-    end
 end

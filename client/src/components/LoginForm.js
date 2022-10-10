@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function LoginForm({ handleLogin, setUser,setIsAuthenticated}) {
+function LoginForm({setUser, setIsAuthenticated}) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [error, setError] = useState([])
+    const [error, setError] = useState('')
 
     const history = useNavigate();
 
@@ -20,35 +20,30 @@ function LoginForm({ handleLogin, setUser,setIsAuthenticated}) {
           password
       }
 
-      fetch(`/login`,{
-        method:'POST',
-        headers:{'Content-Type': 'application/json'},
+      fetch('/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
         body:JSON.stringify(user)
       })
       .then(res => {
-        if(res.ok){
+        if (res.ok) {
           res.json()
-          .then(user=>{
-            setUser(user)
+          .then(user => {
+            setUser(user);
             setIsAuthenticated(true);
-            history("/");
+            history('/');
           })
-          
         } else {
           res.json()
           .then(json => setError(json.error))
         }
-        
       })
     }
 
-
-
   return (
-      
-    <> 
-    <h1>login</h1>
-    <form onSubmit={handleSubmit}>
+  <div>
+    <h1 style={{color: "#FFFFFF", marginLeft: "1em"}}>login</h1>
+    <form style={{marginLeft: "1.3em"}} onSubmit={handleSubmit}>
     {/* <label> */}
       <input className="login-input" type="text" placeholder="username" value={username} onChange={(e) => setUsername(e.target.value)} />
     {/* </label> */}
@@ -58,10 +53,11 @@ function LoginForm({ handleLogin, setUser,setIsAuthenticated}) {
    
     <input type="submit" value="login" />
   </form>
-  {/* if there is error, it will be displayed, other wise do null */}
-  {error?<div>{error}</div>:null}
-    </>
-)
+    {/* if there is error, it will be displayed, other wise do null */}
+    { error ? <div style={{color: "#3A553A"}}>{error} </div> : null }
+  </div>
+  )
+  
 }
 
 export default LoginForm;

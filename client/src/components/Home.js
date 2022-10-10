@@ -5,8 +5,8 @@ import React from "react";
 import "../skeleton.css"
 import "../normalize.css"
 
-function Home( { profiles } ) {
-
+function Home( { profiles, user } ) {
+  // console.log(user.username)
     const profileItems = profiles.map(user => {
         const path = `/${user.id}`
         return (

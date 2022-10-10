@@ -1,16 +1,21 @@
 class PostsController < ApplicationController
-    skip_before_action :authorize_user, only: [:create, :show, :index]
+    skip_before_action :authorize_user, only: [:show, :index]
     #GET /posts
 
     def index
-        posts = Post.all
-        render json: posts, status: :ok
+        render json: Post.all
     end
 
     #SHOW /posts/:id
     def show
-        p = Post.find_by(id: params[:id])
+        p = Post.find(params[:id])
         render json: p, status: :ok
+    end
+
+    def comments
+        po = Post.find(params[:id])
+        c = po.comments
+        render json: c, status: :ok
     end
 
     # creator = post.user.username
@@ -28,12 +33,11 @@ class PostsController < ApplicationController
     # end
 
     def create
+        puts "post_params", post_params
         post = Post.create!(post_params)
         render json: post, status: :created
-
     rescue ActiveRecord::RecordInvalid => invalid
         render json: {errors: invalid.record.errors}, status: :unprocessable_entity
-
     end
 
     #PATCH / PUT /posts/:id
@@ -53,9 +57,12 @@ class PostsController < ApplicationController
 
     #DELETE /posts/:id
     def destroy
-        @post.destroy
-        # redirect_to @post, notice: "Post was successfully destroyed."
+        post = Post.find(params[:id])
+        post.destroy
         head :no_content
+        # @post.destroy
+        # redirect_to @post, notice: "Post was successfully destroyed."
+        # head :no_content
     end
 
 
@@ -66,7 +73,9 @@ class PostsController < ApplicationController
     end
 
     def post_params
-        params.require(:post).permit(:title, :user_id, :content, :image)
+        pp = params.require(:post).permit(:title, :user_id, :content, :image)
+        pp[:user_id] = current_user[:id]
+        return pp
     end
 
 end

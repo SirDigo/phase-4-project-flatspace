@@ -7,96 +7,51 @@ import About from "./About";
 import AddPostForm from "./AddPostForm";
 import Profile from "./Profile";
 import Post from "./Post";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-  const [errors, setErrors] = useState(false)
-  const [posts, setPosts] = useState([])
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [profiles, setProfiles] = useState([]);
-
-  const navigate = useNavigate();
+  // const [id, setId] = useState('')
+  // const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/users")
     .then((r) => r.json())
     .then(data => setProfiles(data))
-}, [])
+    }, [])
 
-function handleSignUp(u){
-  fetch('/users', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body:JSON.stringify(u)
-  })
-  .then(res => res.json())
-  .then(data => {
-    if(data.errors){
-      setErrors(data.errors)
-    } else {
-      setProfiles([...profiles, data]);
-      setIsAuthenticated(true);
-      navigate(`/${data.id}`);
-      setUser(data);
-    }
-  })
-}
-
-  useEffect(() => {
-    fetch('/authorized_user')
-    .then((res) => {
-      if (res !== true) {
-        res.json()
-        .then(() => {
-          setIsAuthenticated(false);
-          setUser(null);
-        })
-      }
-      else if (res.ok) {
-        res.json()
-        .then((user) => {
-          setIsAuthenticated(true);
-          setUser(user);
-        });
-      }
-    });
-  },[]);
-
-  useEffect(() => {
-    fetch('/posts')
-    .then(res => res.json())
-    .then(setPosts);
-  }, []);
-
-  function handlePost(obj){
-      fetch('/posts',{
-        method:'POST',
-        headers: {'Content-Type': 'application/json'},
-        body:JSON.stringify(obj)
-      })
-      .then(res => res.json())
-      .then(data => {
-        if(data.errors){
-          setErrors(data.errors)
-        } else {
-          setPosts([...posts,data])
+    useEffect(() => {
+      fetch('/authorized_user')
+      .then((res) => {
+         if (res.ok) {
+          res.json()
+          .then((user) => {
+            // console.log(user)
+            setIsAuthenticated(true);
+            setUser(user);
+            // setId(user.id)
+          });
         }
-      })
-  }
+      });
+    }, []);
+
+
+  // if (!isAuthenticated) return <LoginForm error={'please login'} setIsAuthenticated={setIsAuthenticated} setUser={setUser} />
 
 
   return (
     <div className="App">
       <Header isAuthenticated={isAuthenticated} user={user} setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>
       <Routes>
-        <Route path="/signup" element={<SignUpForm handleSignUp={handleSignUp} />} />
+        <Route path="/signup" element={<SignUpForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
         <Route path="/login" element={<LoginForm setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />
-        <Route path="/about" element={<About />} />
-        <Route path="/addpost" element={<AddPostForm handlePost={handlePost} errors={errors}/>} />
-        <Route path="/:id/:postId" element={<Post />}/>
+        <Route path="/about" element={<About user={user} />} />
+        <Route path="/addpost" element={<AddPostForm user={user} />} />
+        <Route path="/posts/:postId" element={<Post user={user} />}/>
         <Route path="/:id/*" element={<Profile user={user} />} />
-        <Route path="/" element={<Home profiles={profiles} />} />
+        <Route path="/" element={<Home profiles={profiles} user={user} />} />
       </Routes>
     </div>
   );

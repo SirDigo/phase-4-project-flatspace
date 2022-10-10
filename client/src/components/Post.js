@@ -2,49 +2,34 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CommentForm from "./CommentForm";
 
-function Post() {
-
+function Post( {user} ) {
   const [post, setPost] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-
-  // const id = p.id;
-
-  // const path = `/${userId}/${postId}`
-  const params = useParams();
-  // console.log(params);
-
+  // const [errors, setErrors] = useState(false)
+  
+  const { postId } = useParams();
 
     useEffect(() => {
-      fetch(`/posts/${params.postId}`)
-      .then((r) => r.json())
-      .then(po => {
-        setPost(po);
-      setIsLoaded(true)
+      fetch(`/posts/${postId}`)
+      .then(r => r.json())
+      .then(p => {
+          setPost(p);
+          setIsLoaded(true);
       })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    // const { ti, con } = post;
-    // const [title, setTitle] = useState("");
-    // const [content, setContent] = useState("");
-    // setTitle(ti);
-    // setContent(con);
 
     if (!isLoaded) return <h2>Loading...</h2>;
 
-    const commentItems = post.comments.map(comment => {
-      return (
-          <p key={comment.id}>
-            {comment.content}
-          </p>
-      )
-    })
+
 
   return (
-    <div>
-        <h2>{post.title}</h2>
-        <p>{post.content}</p>
-        <div>{commentItems}</div>
-        <CommentForm />
+    <div className="post-detail" style={{color: "#FFFFFF"}}>
+        <h2 className="post-detail">{post.title}</h2>
+        {post.image?<img className="post-detail" src={post.image} alt="deetz" />:null}
+        <p className="post-detail">{post.content}</p>
+        <h2 className="comments-header" style={{color: "#FFFFFF"}}>comments</h2>
+        <CommentForm u={user} />
     </div>
   );
 }

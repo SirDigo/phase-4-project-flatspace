@@ -1,8 +1,9 @@
 import React from "react";
 
-function About() {
+function About({user}) {
+  // console.log(user.username)
   return (
-    <div>Flatspace is an independent social media platform hand-coded by Caleb Rodriguez, Defne Celikoyar and Felippe Paiva.</div>
+    <div style={{color: "#FFFFFF"}}>Flatspace is an independent social media platform hand-coded by Caleb Rodriguez, Defne Celikoyar and Felippe Paiva.</div>
   );
 }
 
